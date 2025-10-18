@@ -1,6 +1,6 @@
 # TODO
-- [ ] Need to understand the political structure of BiH and FBiH. Specifically, do municipalities send any type of representatives at the entity or national level? Is power shared at this level or only at a presedential/national level? Do municipalities have ethnic quotas? Do all levels of government have them too? https://search.brave.com/search?q=bosnia+and+herzegovina+political+system&source=web&summary=1&conversation=c776a6fe75d352d60acc73
-- [ ] Using the knowledge from above, scrape the appropriate political data (get more info and process it after meeting with Kyle again)
+- [ ] Using the knowledge from above, scrape the appropriate political data
 - [ ] Merge this with the rest of FBiH data.
 - [ ] Visualize
 - [ ] Update proposal with the following: Focus on FBiH and its fragmentation in ethnicity, using voting data as a proxy. New story: ethnic fragmentation (more diversity in the context of BiH) leads to more conflict (political, physical?) and results in lower municpal wage growth. My hypothesis is that areas with higher ethnic diversity will experience slower wage growth than those that have a clear dominant group. Listen to the podcast Kyle recommended and read the paper if it is applicable. https://www.aeaweb.org/research/cultural-distance-ethnic-conflict
+- [ ] Need to understand the political structure of BiH and FBiH. Specifically, do municipalities send any type of representatives at the entity or national level? Is power shared at this level or only at a presedential/national level? Do municipalities have ethnic quotas? Do all levels of government have them too? https://search.brave.com/search?q=bosnia+and+herzegovina+political+system&source=web&summary=1&conversation=c776a6fe75d352d60acc73
