@@ -1,9 +1,16 @@
 import json
 import requests
 import sqlite3
+import time
 
 import bs4 as bs
 import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, StaleElementReferenceException
 
 # This import is a bit weird because the __main__ entry point will be in
 # notebooks/ dir so the imports have to be absolute from that perspective.
@@ -308,3 +315,91 @@ def modern_scrape(year: int, api_year: str, municipalities_to_codes: dict):
         except requests.exceptions.JSONDecodeError:
             print("Failed to decode JSON. The response was not JSON.")
             print(response.text)
+
+def older_scrape(url: str, headless: bool, year: int, municipalities_to_codes: dict):
+    """Scrapes data from 2014 and 2010 BiH voting websites given their urls.
+
+    Args:
+        headless: whether to show the scraping in a firefox browser, good to see when debugging
+        year: needed to get the correct municipalites for the year
+        municipalities_to_codes: names to go into the db and their
+            corresponding codes to be able to query the api endpoint.
+    """
+    municipalities = [(name, code) for name, code in municipalities_to_codes.items()]
+    sorted_by_codes = sorted(municipalities, key=lambda x: x[1])
+    sorted_municipalities = [name for name, _ in sorted_by_codes]
+    
+    options = FirefoxOptions()
+    if headless:
+        options.add_argument("--headless")
+    
+    print("Starting browser.")
+    driver = webdriver.Firefox(options=options)
+    
+    try:    
+        driver.get(url)
+    
+        wait = WebDriverWait(driver, 10)
+        LINK_LOCATOR = (By.CLASS_NAME, "linkRegions")
+        
+        try:
+            links = wait.until(
+                EC.presence_of_all_elements_located(LINK_LOCATOR)
+            )
+            num_links = len(links)
+            print(f"Successfully found {num_links} links. Starting iteration...")
+        except TimeoutException:
+            raise
+    
+        for i, municipality in enumerate(sorted_municipalities):
+            print(f"--- Loop {i+1} of {num_links} ---")
+            candidate_results = {}
+            
+            try:
+                all_links = wait.until(
+                    EC.presence_of_all_elements_located(LINK_LOCATOR)
+                )
+                
+                link_to_click = all_links[i]
+                link_text = link_to_click.text.strip()
+                
+                print(f"Clicking link: {link_text}")
+                link_to_click.click()
+                
+                table_id = "ctl00_rightContentPlaceHolder_tabChartTable_tabTable_gvResults"            
+                first_row_locator = (By.CSS_SELECTOR, f"#{table_id} tr.rowStyle")
+                wait.until(EC.presence_of_element_located(first_row_locator))
+                
+                results_table = driver.find_element(By.ID, table_id)
+                
+                rows = results_table.find_elements(By.TAG_NAME, "tr")            
+                for row in rows[1:]:
+                    cells = row.find_elements(By.TAG_NAME, "td")
+                    
+                    if len(cells) == 2:
+                        candidate_name = cells[0].text.strip()
+                        vote_count = cells[1].text.strip()
+                        candidate_results[candidate_name] = vote_count
+                    else:
+                        print(f"  Skipping row, found {len(cells)} cells instead of 2.")
+                print(f"Scraped {len(rows[1:])} candidate results for {link_text}.")
+    
+                insert_candidate_results(candidate_results, municipality, year)
+                
+                driver.get(url)            
+                wait.until(EC.presence_of_all_elements_located(LINK_LOCATOR))
+    
+            except StaleElementReferenceException:
+                print(f"STALE ELEMENT on loop {i+1}. Retrying loop.")
+                continue 
+            except Exception as e:
+                print(f"An error occurred on loop {i+1}: {e}")
+                continue 
+    
+        print("\nSuccessfully iterated through all links!")
+    
+    except Exception as e:
+        print(f"An error occurred in main block: {e}")
+    finally:
+        print("All done. Closing the browser.")
+        driver.quit()

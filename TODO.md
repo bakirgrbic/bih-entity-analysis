@@ -1,5 +1,5 @@
 # TODO
-- [ ] Using the knowledge from above, scrape the appropriate political data
+- [ ] 2010 data on Mostar is weird. Investigate why this is (see src you got on phone) and how to handle this. Then do a quick and dirty scrape based on what Gemini said. Lastly manually input Mostar for this year.
 - [ ] Merge this with the rest of FBiH data.
 - [ ] Visualize
 - [ ] Update proposal with the following: Focus on FBiH and its fragmentation in ethnicity, using voting data as a proxy. New story: ethnic fragmentation (more diversity in the context of BiH) leads to more conflict (political, physical?) and results in lower municpal wage growth. My hypothesis is that areas with higher ethnic diversity will experience slower wage growth than those that have a clear dominant group. Listen to the podcast Kyle recommended and read the paper if it is applicable. https://www.aeaweb.org/research/cultural-distance-ethnic-conflict
