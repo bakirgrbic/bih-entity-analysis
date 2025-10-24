@@ -208,6 +208,5 @@ __marimo__/
 
 # Custom ignores
 .DS_Store
-/data/
 .jupyter/
 .virtual_documents/
