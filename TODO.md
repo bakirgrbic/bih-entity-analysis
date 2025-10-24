@@ -1,8 +1,5 @@
 # TODO
-- [ ] Convert percentage voted to be a percentage and not large decimal? Should be 0 - 1 not 0 - 100. For 2013 get percentage of groups with 0 - 1 values
-- [ ] Need to choose how to fill data for years that are missing a percentage for voting except 2013 just use census data (back and forward filling it?)
-- [ ] Create a new variable that measures the differenc in concentrations (like Gini or entropy) because I don't care which group is concentrated only that more equally concentrated municipalities will lead to more conflict and vice versa (hypothesis)
-- [ ] Come up with a better title for `2.` header?
-- [ ] Clean up the non political data for any missing values and change their datatypes to make more sense.
 - [ ] Complete PA4 (Try to use geo plotting for more informative figures, but how to display these gifs in the assignment turn in?
 - [ ] Update proposal with the following: Focus on FBiH and its fragmentation in ethnicity, using voting data as a proxy. New story: ethnic fragmentation (more diversity in the context of BiH) leads to more conflict (political, physical?) and results in lower municpal wage growth. My hypothesis is that areas with higher ethnic diversity will experience slower wage growth than those that have a clear dominant group. Listen to the podcast Kyle recommended and read the paper if it is applicable. https://www.aeaweb.org/research/cultural-distance-ethnic-conflict
+- [ ] Find literature that supports the use of HHI in your ethnic concentration and political fragmentation vars
+- [ ] Use the following as additional evidence for assuming ethnic to political connection: https://www.bmz.de/en/countries/bosnia-and-herzegovina/political-situation-91748
