@@ -1,7 +1,15 @@
 # Capstone Economics Project and Paper
 
 ## Prerequisites to running notebooks
-Make sure to install python requirements with:
+For running `Geographic Data Merge` you must install 
+[conda](https://www.anaconda.com/download) or miniconda
+and run the following to install necessary dependancies (create an env first!):
+```shell
+conda install -c conda-forge geopandas
+```
+
+For the other notebooks, make sure to install python dependencies with:
+(If you are using conda, make sure your environemnt is active first!)
 ```shell
 pip install -r requirements.txt
 ```
@@ -22,3 +30,6 @@ brew install geckodriver
 ```shell
 brew install --cask firefox
 ```
+
+## Acknoledgments
+Geographic data obtained from [geoBoundaries](https://www.geoboundaries.org)
